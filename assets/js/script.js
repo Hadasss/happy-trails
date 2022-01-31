@@ -1,4 +1,5 @@
 const cardContainer = document.querySelector(".card-container");
+const cityDdisplayDiv = document.querySelector(".city-display");
 const searchHistoryContainer = document.querySelector(".search-history");
 let formInput = document.querySelector("#form-input");
 const userSearchForm = document.querySelector("#user-search");
@@ -77,25 +78,25 @@ const nestedRequest = function (lat, lon, city) {
         // TODO add icon to forecast
         for (let i = 1; i <= 5; i++) {
           var cardBodyDiv = document.createElement("div");
-          cardBodyDiv.classList = "card column is-2";
+          cardBodyDiv.classList = "card column auto";
           var cardTitle = document.createElement("h5");
-          cardTitle.classList = "card-header card-title";
+          cardTitle.classList = "card-header";
           var futureDate = new Date(data.daily[i].dt * 1000);
           cardTitle.textContent = futureDate.toLocaleDateString();
           var weatherIcon = document.createElement("img");
           //   weatherIcon.innerHTML = `<img src=${imgUrl}>`;
           var cardTextTemp = document.createElement("p");
-          cardTextTemp.classList = "block content card-text";
+          cardTextTemp.classList = "content";
           cardTextTemp.textContent = `Temp: ${Math.floor(
             data.daily[i].temp.day
           )}°F`;
           var cardTextWind = document.createElement("p");
-          cardTextWind.classList = "block content card-text";
+          cardTextWind.classList = "content";
           cardTextWind.textContent = `Wind Speed: ${Math.floor(
             data.daily[i].wind_speed
           )} MPH`;
           var cardTextHumid = document.createElement("p");
-          cardTextHumid.classList = "block content card-text";
+          cardTextHumid.classList = "content";
           cardTextHumid.textContent = `Humidity: ${data.daily[i].humidity}%`;
           cardBodyDiv.appendChild(cardTitle);
           cardBodyDiv.appendChild(cardTextTemp);
@@ -112,7 +113,7 @@ const nestedRequest = function (lat, lon, city) {
 const cityInputHandler = function (event) {
   event.preventDefault();
   cardContainer.innerHTML = "";
-
+  cityDdisplayDiv.classList.remove("hidden");
   cityTitle.textContent = "";
   let cityName = formInput.value.trim();
 
@@ -120,15 +121,6 @@ const cityInputHandler = function (event) {
     getCityWeather(cityName);
     saveCitiesHistory(cityName);
     formInput.value = "";
-
-    // TODO display old searches below search button
-    // const unique = Array.from(new Set(cities));
-    // console.log(unique);
-    // for (let j = 0; j < unique.length; j++) {
-    //   let cityBtn = document.createElement("button");
-    //   cityBtn.textContent = unique[j];
-    //   searchHistoryContainer.appendChild(cityBtn);
-    // }
   } else {
     alert("Please type a city name");
   }

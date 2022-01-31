@@ -3,20 +3,36 @@ button {
   font-family: "Quicksand", sans-serif;
 }
 
+body {
+  height: 100vh;
+  background-color: #e7e7e7;
+}
+
 main {
   margin: 10px;
 }
 
 .is-1 {
+  padding: 20px;
   text-align: center;
   background-color: #d1d1d1;
   margin-bottom: 40px;
+  color: #00d1b2;
 }
 
 .card {
   padding: 10px;
+  margin: 5px;
 }
 
 .forecast {
   margin-top: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.card-header {
+  font-weight: bold;
 }
