@@ -1,31 +1,22 @@
-main,
-header {
-  margin: 20px;
-  padding: 20px;
+*,
+button {
+  font-family: "Quicksand", sans-serif;
 }
 
-.container {
+main {
+  margin: 10px;
 }
 
-h1,
-h4 {
-  background-color: lightsteelblue;
+.is-1 {
+  text-align: center;
+  background-color: #d1d1d1;
+  margin-bottom: 40px;
 }
 
-div {
-  background-color: lightgrey;
+.card {
+  padding: 10px;
 }
 
-.city-display {
-  display: flex;
-  flex-direction: column;
-}
-
-.future-forecast-container {
-  display: flex;
-  flex-direction: row;
-}
-
-.form-element {
-  width: 100%;
+.forecast {
+  margin-top: 20px;
 }

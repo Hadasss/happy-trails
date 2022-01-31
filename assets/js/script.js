@@ -2,7 +2,7 @@ const cardContainer = document.querySelector(".card-container");
 const searchHistoryContainer = document.querySelector(".search-history");
 let formInput = document.querySelector("#form-input");
 const userSearchForm = document.querySelector("#user-search");
-const searchBtn = document.querySelector(".btn-primary");
+const searchBtn = document.querySelector(".searchBtn");
 let cityTitle = document.querySelector(".city-name");
 const currentTempSpan = document.querySelector(".temp");
 let currentDayIcon = document.querySelector(".current-day-icon");
@@ -19,6 +19,7 @@ if (localStorage.getItem("city")) {
   console.log(unique);
   for (let j = 0; j < unique.length; j++) {
     let cityBtn = document.createElement("button");
+    cityBtn.classList = "button is-primary is-light is-fullwidth block";
     cityBtn.textContent = unique[j];
     searchHistoryContainer.appendChild(cityBtn);
   }
@@ -76,25 +77,25 @@ const nestedRequest = function (lat, lon, city) {
         // TODO add icon to forecast
         for (let i = 1; i <= 5; i++) {
           var cardBodyDiv = document.createElement("div");
-          cardBodyDiv.classList = "card-body";
+          cardBodyDiv.classList = "card column is-2";
           var cardTitle = document.createElement("h5");
-          cardTitle.classList = "card-title";
+          cardTitle.classList = "card-header card-title";
           var futureDate = new Date(data.daily[i].dt * 1000);
           cardTitle.textContent = futureDate.toLocaleDateString();
           var weatherIcon = document.createElement("img");
           //   weatherIcon.innerHTML = `<img src=${imgUrl}>`;
           var cardTextTemp = document.createElement("p");
-          cardTextTemp.classList = "card-text";
+          cardTextTemp.classList = "block content card-text";
           cardTextTemp.textContent = `Temp: ${Math.floor(
             data.daily[i].temp.day
           )}°F`;
           var cardTextWind = document.createElement("p");
-          cardTextWind.classList = "card-text";
+          cardTextWind.classList = "block content card-text";
           cardTextWind.textContent = `Wind Speed: ${Math.floor(
             data.daily[i].wind_speed
           )} MPH`;
           var cardTextHumid = document.createElement("p");
-          cardTextHumid.classList = "card-text";
+          cardTextHumid.classList = "block content card-text";
           cardTextHumid.textContent = `Humidity: ${data.daily[i].humidity}%`;
           cardBodyDiv.appendChild(cardTitle);
           cardBodyDiv.appendChild(cardTextTemp);

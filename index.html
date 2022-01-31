@@ -4,10 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
     <title>Weather Dashboard</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <!-- 
     <link
       rel="stylesheet"
@@ -27,26 +31,27 @@
   </head>
   <body>
     <header>
-      <h1 class="z-depth-3 row justify-text-content">Weather Dashboard</h1>
+      <h1 class="is-12 title is-1">Weather Dashboard</h1>
     </header>
 
-    <main class="container">
-      <div class="row justify-content-around">
-        <div class="col-3 cities-search">
-          <h4>Search for a city:</h4>
-          <form id="user-search">
+    <main>
+      <div class="columns block">
+        <div class="column is-3 cities-search">
+          <h4 class="title is-4">Search for a city:</h4>
+          <form id="user-search" class="block">
             <label for="search"></label>
-            <input class="form-element input" type="text" id="form-input" name="search" placeholder="Search A City">
-            <button class="waves-effect waves-light btn btn btn-primary form-element">Search</button>
+            <input class="input is-primary block" type="text" id="form-input" name="search" placeholder="Search A City">
+            <button class="searchBtn button is-fullwidth is-primary">Search</button>
           </form>
           <div class="search-history">
+         
           </div>
         </div>
 
-        <div class="col-9 city-display">
-          <div class="current-city-details">
-            <h3 class="city-name"><span class="current-day-icon"></span></h3>
-            <div class="city-weather-details">
+        <div class="column is-9 block city-display">
+          <div class="card current-city-details">
+            <h3 class="card-header title is-3 city-name"><span class="current-day-icon"></span></h3>
+            <div class="block content city-weather-details">
               <p>Temp: <span class="temp"></span></p>
               <p>Wind: <span class="wind"></span></p>
               <p>Humidity: <span class="humidity"></span></p>
@@ -54,10 +59,10 @@
             </div>
           </div>
 
-          <h4 class="forecast">5-Day Forecast</h4>
+          <h4 class="forecast title is-4">5-Day Forecast</h4>
 
-          <div class="row">
-            <div class="col-sm-6 card-container">
+          <div>
+            <div class="card-container columns">
 
             </div>
           </div>
