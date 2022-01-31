@@ -1,25 +1,27 @@
 const cardContainer = document.querySelector(".card-container");
+const searchHistoryContainer = document.querySelector(".search-history");
 let formInput = document.querySelector("#form-input");
 const userSearchForm = document.querySelector("#user-search");
 const searchBtn = document.querySelector(".btn-primary");
 let cityTitle = document.querySelector(".city-name");
 const currentTempSpan = document.querySelector(".temp");
 let currentDayIcon = document.querySelector(".current-day-icon");
-
-let currentDate = new Date();
-let formattedDate =
-  currentDate.getDate() +
-  "-" +
-  (currentDate.getMonth() + 1) +
-  "-" +
-  currentDate.getFullYear();
-
 const currentWindSpan = document.querySelector(".wind");
 const currentHumiditySpan = document.querySelector(".humidity");
 const currentUVSpan = document.querySelectorAll(".uv");
+let currentDate = new Date().toLocaleDateString();
 let cities = [];
+
 if (localStorage.getItem("city")) {
   cities = JSON.parse(localStorage.getItem("city"));
+  console.log(cities);
+  const unique = Array.from(new Set(cities));
+  console.log(unique);
+  for (let j = 0; j < unique.length; j++) {
+    let cityBtn = document.createElement("button");
+    cityBtn.textContent = unique[j];
+    searchHistoryContainer.appendChild(cityBtn);
+  }
 }
 
 const getCityWeather = function (city) {
@@ -34,12 +36,8 @@ const getCityWeather = function (city) {
         response.json().then(function (data) {
           console.log(data, city);
           let date = new Date(data.dt * 1000);
-          console.log(date);
-          console.log(date.toLocaleDateString());
+          // TODO add icon to current day
 
-          let iconId = data.weather[0].icon;
-          let imgUrl = ` http://openweathermap.org/img/wn/${iconId}@2x.png`;
-          console.log(imgUrl);
           nestedRequest(data.coord.lat, data.coord.lon, city);
         });
       } else {
@@ -63,36 +61,39 @@ const nestedRequest = function (lat, lon, city) {
   fetch(forecastUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        console.log(data);
-
-        cityTitle.textContent = ` ${city} ${formattedDate}`;
-        // currentDayIcon = data.current.weather.icon;
+        console.log(data, city);
+        // TODO add icon to current day
+        cityTitle.textContent = `${city} (${currentDate})`;
+        let iconId = data.current.weather[0].icon;
+        let imgUrl = `http://openweathermap.org/img/wn/${iconId}@2x.png`;
+        console.log(imgUrl);
+        currentDayIcon = `<img src=${imgUrl}>`;
         currentTempSpan.textContent = `${Math.floor(data.current.temp)}°F`;
         currentHumiditySpan.textContent = `${data.current.humidity}%`;
         currentWindSpan.textContent = `${data.current.wind_speed} MPH`;
-        currentUVSpan.textContent = `${data.current.uvi}`;
+        currentUVSpan.textContent = `${data.current.uvi}`; // BUG
 
-        // TODO add futurforecast() on click on title.
-        //   futureForecast(cityName);
-
+        // TODO add icon to forecast
         for (let i = 1; i <= 5; i++) {
-          const cardBodyDiv = document.createElement("div");
+          var cardBodyDiv = document.createElement("div");
           cardBodyDiv.classList = "card-body";
-          let cardTitle = document.createElement("h5");
+          var cardTitle = document.createElement("h5");
           cardTitle.classList = "card-title";
-          // TODO add date for each day
-          cardTitle.textContent = `${data.daily[i].dt}`;
-          let cardTextTemp = document.createElement("p");
+          var futureDate = new Date(data.daily[i].dt * 1000);
+          cardTitle.textContent = futureDate.toLocaleDateString();
+          var weatherIcon = document.createElement("img");
+          //   weatherIcon.innerHTML = `<img src=${imgUrl}>`;
+          var cardTextTemp = document.createElement("p");
           cardTextTemp.classList = "card-text";
           cardTextTemp.textContent = `Temp: ${Math.floor(
             data.daily[i].temp.day
           )}°F`;
-          let cardTextWind = document.createElement("p");
+          var cardTextWind = document.createElement("p");
           cardTextWind.classList = "card-text";
           cardTextWind.textContent = `Wind Speed: ${Math.floor(
             data.daily[i].wind_speed
           )} MPH`;
-          let cardTextHumid = document.createElement("p");
+          var cardTextHumid = document.createElement("p");
           cardTextHumid.classList = "card-text";
           cardTextHumid.textContent = `Humidity: ${data.daily[i].humidity}%`;
           cardBodyDiv.appendChild(cardTitle);
@@ -109,20 +110,29 @@ const nestedRequest = function (lat, lon, city) {
 
 const cityInputHandler = function (event) {
   event.preventDefault();
+  cardContainer.innerHTML = "";
+
+  cityTitle.textContent = "";
   let cityName = formInput.value.trim();
 
   if (cityName) {
-    console.log(cityName);
     getCityWeather(cityName);
     saveCitiesHistory(cityName);
-
     formInput.value = "";
+
+    // TODO display old searches below search button
+    // const unique = Array.from(new Set(cities));
+    // console.log(unique);
+    // for (let j = 0; j < unique.length; j++) {
+    //   let cityBtn = document.createElement("button");
+    //   cityBtn.textContent = unique[j];
+    //   searchHistoryContainer.appendChild(cityBtn);
+    // }
   } else {
     alert("Please type a city name");
   }
 };
 
-// TODO set up local storage for serached cities + display old searches below search button
 const saveCitiesHistory = function (cityInput) {
   if (cities.length > 7) {
     cities.splice(0, 1);
