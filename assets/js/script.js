@@ -38,8 +38,6 @@ const getCityWeather = function (city) {
         response.json().then(function (data) {
           console.log(data, city);
           let date = new Date(data.dt * 1000);
-          // TODO add icon to current day
-
           nestedRequest(data.coord.lat, data.coord.lon, city);
         });
       } else {
@@ -74,13 +72,14 @@ const nestedRequest = function (lat, lon, city) {
         currentHumiditySpan.textContent = `${data.current.humidity}%`;
         currentWindSpan.textContent = `${data.current.wind_speed} MPH`;
         currentUVSpan.textContent = `${data.current.uvi}`; // BUG
+        cityDdisplayDiv.classList.remove("hidden");
 
         // TODO add icon to forecast
         for (let i = 1; i <= 5; i++) {
           var cardBodyDiv = document.createElement("div");
           cardBodyDiv.classList = "card column auto";
           var cardTitle = document.createElement("h5");
-          cardTitle.classList = "card-header";
+          cardTitle.classList = "card-forecast card-header title is-5";
           var futureDate = new Date(data.daily[i].dt * 1000);
           cardTitle.textContent = futureDate.toLocaleDateString();
           var weatherIcon = document.createElement("img");
@@ -113,7 +112,7 @@ const nestedRequest = function (lat, lon, city) {
 const cityInputHandler = function (event) {
   event.preventDefault();
   cardContainer.innerHTML = "";
-  cityDdisplayDiv.classList.remove("hidden");
+
   cityTitle.textContent = "";
   let cityName = formInput.value.trim();
 
@@ -134,4 +133,13 @@ const saveCitiesHistory = function (cityInput) {
   localStorage.setItem("city", JSON.stringify(cities));
 };
 
+// BUG displays multiple elemts for future forecast + doesn't display on click, only when a city is already displayed
+const displayHistory = function (event) {
+  let previousCity = event.target.textContent;
+  formInput.value = previousCity;
+
+  //   getCityWeather(previousCity);
+};
+
 searchBtn.addEventListener("click", cityInputHandler);
+searchHistoryContainer.addEventListener("click", displayHistory);
