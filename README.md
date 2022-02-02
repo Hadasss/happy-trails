@@ -35,10 +35,9 @@ THEN I am again presented with current and future conditions for that city
 
 ![image](https://user-images.githubusercontent.com/80355222/152028405-ab77c86d-792d-4365-9064-fe4a46fc4b5f.png)
 
-![image](https://user-images.githubusercontent.com/80355222/152028498-749c4af6-245d-470d-bf80-1df9e3acf822.png)
+![image](https://user-images.githubusercontent.com/80355222/152236767-ccf07a6b-aa8d-4ca0-b50e-e2f426b55bc6.png)
 
-![image](https://user-images.githubusercontent.com/80355222/152028607-2f23927f-f561-4b7f-92fc-4303a1939a6a.png)
-
+![image](https://user-images.githubusercontent.com/80355222/152236963-13e74850-21cc-4944-85af-001e96530f92.png)
 
 
 ## Link To Live Deployment
