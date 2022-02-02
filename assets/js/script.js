@@ -9,7 +9,7 @@ const currentTempSpan = document.querySelector(".temp");
 let currentDayIcon = document.querySelector(".current-day-icon");
 const currentWindSpan = document.querySelector(".wind");
 const currentHumiditySpan = document.querySelector(".humidity");
-const currentUVSpan = document.querySelectorAll(".uv");
+const currentUVSpan = document.querySelector(".uv");
 let currentDate = new Date().toLocaleDateString();
 let cities = [];
 
@@ -62,28 +62,42 @@ const nestedRequest = function (lat, lon, city) {
     if (response.ok) {
       response.json().then(function (data) {
         console.log(data, city);
-        // TODO add icon to current day
         cityTitle.textContent = `${city} (${currentDate})`;
-        let iconId = data.current.weather[0].icon;
+        // TODO add icon to current day
+        let currentDayIcon = document.createElement("img");
+        let iconId = data.daily[0].weather[0].icon;
         let imgUrl = `http://openweathermap.org/img/wn/${iconId}@2x.png`;
-        console.log(imgUrl);
-        currentDayIcon = `<img src=${imgUrl}>`;
+        currentDayIcon.setAttribute("src", imgUrl);
+        cityTitle.appendChild(currentDayIcon);
         currentTempSpan.textContent = `${Math.floor(data.current.temp)}°F`;
         currentHumiditySpan.textContent = `${data.current.humidity}%`;
         currentWindSpan.textContent = `${data.current.wind_speed} MPH`;
-        currentUVSpan.textContent = `${data.current.uvi}`; // BUG
+        currentUVSpan.textContent = `${data.daily[0].uvi}`;
+        if (currentUVSpan.textContent < 4.99) {
+          currentUVSpan.setAttribute("class", "lowuv");
+        } else if (
+          currentUVSpan.textContent < 7 &&
+          currentUVSpan.textContent > 5
+        ) {
+          currentUVSpan.setAttribute("class", "moderateuv");
+        } else {
+          currentUVSpan.setAttribute("class", "highuv");
+        }
         cityDdisplayDiv.classList.remove("hidden");
 
-        // TODO add icon to forecast
         for (let i = 1; i <= 5; i++) {
           var cardBodyDiv = document.createElement("div");
           cardBodyDiv.classList = "card column auto";
           var cardTitle = document.createElement("h5");
           cardTitle.classList = "card-forecast card-header title is-5";
           var futureDate = new Date(data.daily[i].dt * 1000);
+          futureDate.getDate();
           cardTitle.textContent = futureDate.toLocaleDateString();
           var weatherIcon = document.createElement("img");
-          //   weatherIcon.innerHTML = `<img src=${imgUrl}>`;
+          let iconIdForecast = data.daily[i].weather[0].icon;
+          let imgUrl = `http://openweathermap.org/img/wn/${iconIdForecast}.png`;
+          weatherIcon.setAttribute("src", imgUrl);
+          cardTitle.appendChild(weatherIcon);
           var cardTextTemp = document.createElement("p");
           cardTextTemp.classList = "content";
           cardTextTemp.textContent = `Temp: ${Math.floor(
@@ -133,12 +147,9 @@ const saveCitiesHistory = function (cityInput) {
   localStorage.setItem("city", JSON.stringify(cities));
 };
 
-// BUG displays multiple elemts for future forecast + doesn't display on click, only when a city is already displayed
 const displayHistory = function (event) {
   let previousCity = event.target.textContent;
   formInput.value = previousCity;
-
-  //   getCityWeather(previousCity);
 };
 
 searchBtn.addEventListener("click", cityInputHandler);
