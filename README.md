@@ -15,9 +15,7 @@ Weather forecast app, displaying data pulled from the OpenWeatherMap API, delive
 
 ## Installation
 
-npm i
-
-npm run seed (optional)
+Live server / Open in browser
 
 ## Usage
 Plan your travels with this weather forecaster. Type a city name and get data for temperature, wind, humidity and UV index 5 days ahead. 
@@ -46,7 +44,6 @@ There are no tests for this program.
 
 ## Deployment
 https://hadasss.github.io/happy-trails/
-
 
 ## Questions
 
