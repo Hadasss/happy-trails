@@ -1,35 +1,39 @@
 # happy-trails
-Weather forecast app
 
-## User Story
-AS A traveler
+## Project Description
+Weather forecast app, displaying data pulled from the OpenWeatherMap API, delivering a 5-day forecast for several parameters of weather, and using localStorage to remember user's previous and relevant searches.
 
-I WANT to see the weather outlook for multiple cities
+## Table Of Contents
 
-SO THAT I can plan a trip accordingly
+- [Installation Instructions](#installation)
+- [App Usage](#usage)
+- [Tests](#tests)
+- [Technologies](#technologies)
+- [Screenshots](#screenshots)
+- [Deployment](#deployment)
+- [Questions](#questions)
 
-## Acceptance Criteria
-GIVEN a weather dashboard with form inputs
+## Installation
 
-WHEN I search for a city
+npm i
 
-THEN I am presented with current and future conditions for that city and that city is added to the search history
+npm run seed (optional)
 
-WHEN I view current weather conditions for that city
+## Usage
+Plan your travels with this weather forecaster. Type a city name and get data for temperature, wind, humidity and UV index 5 days ahead. 
 
-THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
+## Tests
 
-WHEN I view the UV index
+There are no tests for this program.
 
-THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
+## Technologies
 
-WHEN I view future weather conditions for that city
-
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-
-WHEN I click on a city in the search history
-
-THEN I am again presented with current and future conditions for that city
+- Javascript
+- ES6
+- RESTful API
+- HTML
+- CSS
+- Bulma
 
 ## Screenshots
 
@@ -40,5 +44,11 @@ THEN I am again presented with current and future conditions for that city
 ![image](https://user-images.githubusercontent.com/80355222/152236963-13e74850-21cc-4944-85af-001e96530f92.png)
 
 
-## Link To Live Deployment
+## Deployment
 https://hadasss.github.io/happy-trails/
+
+
+## Questions
+
+For more information or questions about the project
+Contact me on GitHub: [Hadas](https://github.com/hadasss/).
